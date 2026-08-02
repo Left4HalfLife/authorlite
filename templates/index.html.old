@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Model Tester</title>
+<script>
+async function test() {
+ const model = document.getElementById('model').value;
+ const prompt = 'Hello';
+ const res = await fetch('/chat', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt, model})});
+ const data = await res.json();
+ document.getElementById('output').textContent = JSON.stringify(data,null,2);
+}
+</script>
+</head>
+<body>
+<h1>Select Model</h1>
+<select id="model"></select>
+<script>
+        async function loadModels() {
+            try {
+                const resp = await fetch("/models");
+                const data = await resp.json();
+
+                const select = document.getElementById("model");
+                select.innerHTML = ""; // clear existing options
+
+                data.models.forEach(model => {
+                    const opt = document.createElement("option");
+                    opt.value = model;
+                    opt.textContent = model;
+                    select.appendChild(opt);
+                });
+            } catch (err) {
+                console.error("Failed to load models:", err);
+            }
+        }
+
+        // Load models immediately when page loads
+        loadModels();
+    </script>
+</select>
+<button onclick="test()">Test</button>
+
+<script>
+async function test() {
+    const model = document.getElementById("model").value;
+    const output = document.getElementById("output");
+    const assistant = document.getElementById("assistant");
+
+    output.value = "Sending request...\n";
+    assistant.value = "";
+
+    try {
+        const resp = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                model: model,
+                prompt: "Hello!"
+            })
+        });
+
+        const data = await resp.json();
+
+        // Show raw JSON
+        output.value = JSON.stringify(data, null, 2);
+
+        // Extract assistant message
+        const msg =
+            data?.choices?.[0]?.message?.content ||
+            "(No assistant message found)";
+
+        assistant.value = msg;
+
+    } catch (err) {
+        output.value = "Error:\n" + err;
+        assistant.value = "";
+    }
+}
+</script>
+
+
+<h2>Response</h2>
+<textarea id="output" style="width:100%; height:200px; overflow:auto;"></textarea>
+<h2>Assistant Message</h2>
+<textarea id="assistant" style="width:100%; height:200px; overflow:auto;"></textarea>
+
+</body>
+</html>

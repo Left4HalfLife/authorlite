@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3846:3846"
+    volumes:
+      # Persist data directory across container restarts
+      - ./data:/app/data
+    # Use the .env file located in this directory.
+    env_file:
+      - ./.env
