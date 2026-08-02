@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuthorLite - Writing Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1e1e1e;
+            color: #cccccc;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3c3c3c;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: auto;
+        }
+
+        /* Left Navigation Column */
+        .left-nav {
+            position: fixed;
+            left: 0;
+            top: 48px;
+            bottom: 0;
+            width: 240px;
+            background: #252526;
+            border-right: 1px solid #3c3c3c;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-header {
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #969696;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.15s;
+            text-decoration: none;
+            color: #cccccc;
+            font-size: 13px;
+        }
+
+        .nav-item:hover {
+            background: #2a2d2e;
+        }
+
+        .nav-item.active {
+            background: #37373d;
+            border-left: 3px solid #0078d4;
+        }
+
+        .nav-icon {
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            position: absolute;
+            top: 48px;
+            left: 240px;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            background: #1e1e1e;
+        }
+
+        /* File Explorer Tree */
+        .file-explorer {
+            width: 250px;
+            background: #252526;
+            border-right: 1px solid #3c3c3c;
+            padding: 12px;
+            overflow-y: auto;
+        }
+
+        .project-item {
+            padding: 6px 8px;
+            margin: 2px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #cccccc;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-item:hover {
+            background: #2a2d2e;
+        }
+
+        .project-item.active {
+            background: #094771;
+            color: #ffffff;
+        }
+
+        .btn-create-project {
+            width: calc(100% + 16px);
+            padding: 8px 12px;
+            margin: 8px 4px 0;
+            background: #0e639c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-create-project:hover {
+            background: #1177bb;
+        }
+
+        /* File Editor */
+        .file-editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #1e1e1e;
+        }
+
+        .editor-toolbar {
+            padding: 8px 12px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3c3c3c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 4px 12px;
+            background: #0e639c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1177bb;
+        }
+
+        .btn-success {
+            background: #107c10;
+        }
+
+        .btn-success:hover {
+            background: #1aa11a;
+        }
+
+        .btn-danger {
+            background: #ce2626;
+        }
+
+        .btn-danger:hover {
+            background: #f35e26;
+        }
+
+        .editor-container {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .editor-title {
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        textarea.editor {
+            width: 100%;
+            height: calc(100% - 40px);
+            background: transparent;
+            border: none;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: none;
+            outline: none;
+        }
+
+        /* Info Panel */
+        .info-panel {
+            width: 280px;
+            background: #252d36;
+            border-left: 1px solid #3c3c3c;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #969696;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 13px;
+            color: #cccccc;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: #252526;
+            border-radius: 8px;
+            width: 700px;
+            max-width: 90vw;
+            max-height: 85vh;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #3c3c3c;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .btn-close {
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            color: #cccccc;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .btn-close:hover {
+            color: #ffffff;
+        }
+
+        .modal-body {
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #969696;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            background: #3c3c3c;
+            border: 1px solid #555555;
+            border-radius: 3px;
+            color: #cccccc;
+            font-size: 13px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0e639c;
+        }
+
+        .row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            padding: 24px;
+            background: #19304e;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-banner h2 {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .welcome-banner p {
+            color: #cccccc;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Dashboard */
+        .dashboard-view {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-welcome {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .dashboard-welcome h1 {
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .dashboard-welcome p {
+            color: #cccccc;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Hidden state */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Unsaved changes indicator */
+        .unsaved-indicator {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #ce2626;
+            color: white;
+            font-size: 10px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+
+        .btn-unsaved .unsaved-indicator {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <a href="#" class="navbar-brand" onclick="navigateTo('dashboard')">AuthorLite</a>
+    </nav>
+
+    <!-- Left Navigation Column -->
+    <aside class="left-nav">
+        <div class="nav-header">Navigation</div>
+        <a href="#" class="nav-item active" id="nav-dashboard" onclick="navigateTo('dashboard')">
+            <span class="nav-icon">📊</span>
+            Dashboard
+        </a>
+        <a href="#" class="nav-item" id="nav-files" onclick="showFileExplorer()">
+            <span class="nav-icon">📁</span>
+            Projects
+        </a>
+        <a href="#" class="nav-item" id="nav-settings" onclick="openSettingsModal()">
+            <span class="nav-icon">⚙️</span>
+            Settings
+        </a>
+
+        <!-- Welcome Banner (only on dashboard) -->
+        <div id="welcome-banner" class="welcome-banner hidden">
+            <h2>Welcome to AuthorLite!</h2>
+            <p id="dashboard-readme"></p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- File Explorer Tree -->
+        <div id="file-explorer" class="file-explorer hidden">
+            <div class="nav-header">Projects</div>
+            <button class="btn-create-project" onclick="showCreateProjectModal()">
+                <span>+</span> New Project
+            </button>
+            <div id="project-list"></div>
+        </div>
+
+        <!-- File Editor -->
+        <section id="file-editor" class="file-editor hidden">
+            <div class="editor-toolbar">
+                <button class="btn" onclick="saveCurrentFile()">Save</button>
+                <span id="filename-display" style="font-size: 13px; color: #cccccc;"></span>
+            </div>
+            <div class="editor-container">
+                <div class="editor-title" id="editor-title"></div>
+                <textarea class="editor" id="editor-content" placeholder="Start typing here..."></textarea>
+            </div>
+        </section>
+
+        <!-- Info Panel -->
+        <aside id="info-panel" class="info-panel hidden">
+            <div class="info-section">
+                <div class="info-label">Word Count</div>
+                <div class="info-value" id="word-count">0 words</div>
+            </div>
+            <div class="info-section">
+                <div class="info-label">Character Count</div>
+                <div class="info-value" id="char-count">0 characters</div>
+            </div>
+            <!-- Action buttons will be added here dynamically -->
+        </aside>
+
+        <!-- Dashboard View -->
+        <section id="dashboard-view" class="dashboard-view hidden">
+            <div class="dashboard-welcome" id="dashboard-content"></div>
+        </section>
+    </main>
+
+    <!-- Settings Modal (LLM Configuration) -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">LLM Settings</h3>
+                <button class="btn-close" onclick="closeSettingsModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="settings-form" onsubmit="return false;">
+                    <div class="form-group">
+                        <label class="form-label">Select Model</label>
+                        <select class="form-control" id="model-select">
+                            <option value="">-- Choose a model --</option>
+                            <!-- Models will be populated dynamically via AJAX -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Context Limit (tokens, number only)</label>
+                        <input type="number" class="form-control" id="context-limit" min="0" step="1" placeholder="Enter context limit in tokens">
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #3c3c3c;">
+                    <h4 style="color: #cccccc; font-size: 13px; margin-bottom: 10px;">Test Connection</h4>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Test Prompt</label>
+                        <textarea class="form-control" id="test-prompt" rows="2" placeholder="Enter a test prompt...">Hello! Can you tell me about yourself?</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-success" onclick="testModel()">Test</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn" id="save-settings-btn" onclick="saveSettings()">Save Settings</button>
+                        </div>
+                    </div>
+
+                    <!-- Test Response Area -->
+                    <div style="margin-top: 15px;">
+                        <label class="form-label">Test Response</label>
+                        <textarea class="form-control" id="test-output" rows="4" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Project Modal -->
+    <div class="modal-overlay" id="create-project-modal">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Project</h3>
+                <button class="btn-close" onclick="closeCreateProjectModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-control" id="project-name-input" placeholder="Enter project name">
+                </div>
+                <button class="btn btn-success btn-block" onclick="createNewProject()">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden iframes for model discovery and chat (used by JavaScript) -->
+    <iframe id="model-discovery-frame" style="display:none;"></iframe>
+    <iframe id="chat-frame" style="display:none;"></iframe>
+
+    <script>
+        // Application state
+        let currentProject = null;
+        let currentFile = 'idea.md';
+        let unsavedChanges = false;
+        let settings = {
+            model: '',
+            contextLimit: 0,
+            baseURL: '',
+            apiKey: ''
+        };
+
+        // Load saved settings on startup
+        function loadSettings() {
+            try {
+                const fs = require('fs');
+                
+                // Try to load from Flask's persistent storage path (will be mounted)
+                const settingsPath = './persistant-data/settings/settings.json';
+                if (fs.existsSync(settingsPath)) {
+                    const data = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+                    settings.model = data.model || '';
+                    settings.contextLimit = data.contextLimit || 0;
+                    settings.baseURL = data.baseURL || 'http://localhost:1234/v1';
+                    settings.apiKey = data.apiKey || '';
+                } else {
+                    // Default settings for local LM Studio
+                    settings.baseURL = 'http://localhost:1234/v1';
+                    settings.apiKey = '';
+                }
+            } catch (e) {
+                console.error('Error loading settings:', e);
+            }
+        }
+
+        // Navigation logic
+        function navigateTo(view) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            if (view === 'dashboard') {
+                document.getElementById('nav-dashboard').classList.add('active');
+                showDashboard();
+            } else if (view === 'projects') {
+                document.getElementById('nav-files').classList.add('active');
+                loadProjectList();
+                document.getElementById('file-explorer').classList.remove('hidden');
+            }
+
+            hideFileEditor();
+        }
+
+        function showFileExplorer() {
+            navigateTo('projects');
+            const projectPath = './persistant-data/data';
+            
+            if (currentProject) {
+                loadProjectTree(projectPath + '/' + currentProject);
+            }
+        }
+
+        // Load project list from filesystem
+        function loadProjectList() {
+            const projectListEl = document.getElementById('project-list');
+            const projectPath = './persistant-data/data';
+            
+            try {
+                const fs = require('fs');
+                if (fs.existsSync(projectPath)) {
+                    const entries = fs.readdirSync(projectPath);
+                    projectListEl.innerHTML = '';
+                    
+                    // Sort and display projects
+                    entries.sort().forEach(project => {
+                        const div = document.createElement('div');
+                        div.className = 'project-item' + (currentProject === project ? ' active' : '');
+                        div.textContent = project;
+                        div.onclick = () => openProject(project);
+                        projectListEl.appendChild(div);
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading projects:', e);
+            }
+        }
+
+        // Open a project and load its first file (idea.md)
+        function openProject(projectName) {
+            currentProject = projectName;
+            
+            // Update project list UI
+            document.querySelectorAll('.project-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            const projectEl = Array.from(document.querySelectorAll('.project-item')).find(
+                el => el.textContent === projectName
+            );
+            if (projectEl) projectEl.classList.add('active');
+
+            // Load the idea.md file
+            loadFile(projectName, 'idea.md');
+        }
+
+        // Load a file from persistent storage
+        function loadFile(project, filename) {
+            const filePath = `./persistant-data/data/${project}/${filename}`;
+            
+            try {
+                const fs = require('fs');
+                if (fs.existsSync(filePath)) {
+                    const content = fs.readFileSync(filePath, 'utf8');
+                    
+                    // Update UI
+                    document.getElementById('filename-display').textContent = filename;
+                    document.getElementById('editor-title').textContent = filename.toUpperCase();
+                    document.getElementById('editor-content').value = content;
+                    
+                    unsavedChanges = false;
+                    updateUnsavedIndicator();
+                    
+                    // Show editor panel and info panel
+                    document.getElementById('file-editor').classList.remove('hidden');
+                    document.getElementById('info-panel').classList.remove('hidden');
+                    document.getElementById('file-explorer').classList.remove('hidden');
+                    
+                    // Update word/character count
+                    updateWordCount(content);
+                }
+            } catch (e) {
+                console.error('Error loading file:', e);
+            }
+        }
+
+        // Save current file to persistent storage
+        function saveCurrentFile() {
+            try {
+                const fs = require('fs');
+                const content = document.getElementById('editor-content').value;
+                
+                const filePath = `./persistant-data/data/${currentProject}/${currentFile}`;
+                fs.writeFileSync(filePath, content, 'utf8');
+                
+                unsavedChanges = false;
+                updateUnsavedIndicator();
+                alert('File saved successfully!');
+            } catch (e) {
+                console.error('Error saving file:', e);
+                alert('Error saving file. Please check the path.');
+            }
+        }
+
+        // Update word count display
+        function updateWordCount(text) {
+            const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+            document.getElementById('word-count').textContent = `${words} words`;
+            
+            const chars = text.length;
+            document.getElementById('char-count').textContent = `${chars} characters`;
+        }
+
+        // Update unsaved changes indicator
+        function updateUnsavedIndicator() {
+            const btn = document.querySelector('.editor-toolbar .btn');
+            if (unsavedChanges) {
+                btn.classList.add('unsaved');
+                btn.classList.remove('btn-success');
+                btn.className = 'btn btn-danger';
+                btn.innerHTML = '<span class="unsaved-indicator">●</span> Save';
+            } else {
+                btn.classList.remove('unsaved');
+                btn.classList.add('btn-success');
+                btn.className = 'btn btn-success';
+                btn.innerHTML = 'Save';
+            }
+        }
+
+        // Dashboard views
+        function showDashboard() {
+            document.getElementById('dashboard-view').classList.remove('hidden');
+            document.getElementById('file-editor').classList.add('hidden');
+            
+            const readmePath = './README.md';
+            try {
+                const fs = require('fs');
+                if (fs.existsSync(readmePath)) {
+                    const readme = fs.readFileSync(readmePath, 'utf8');
+                    // Extract relevant sections for welcome banner
+                    const lines = readme.split('\n').filter(l => l.trim());
+                    const text = lines.slice(1, 5).join('\n') + '\n\n...';
+                    document.getElementById('dashboard-readme').textContent = text;
+                }
+            } catch (e) {
+                console.error('Error loading README:', e);
+            }
+
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('nav-dashboard').classList.add('active');
+        }
+
+        // Modal functions
+        function openSettingsModal() {
+            document.getElementById('settings-modal').classList.add('open');
+            populateModelSelect();
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settings-modal').classList.remove('open');
+        }
+
+        function showCreateProjectModal() {
+            document.getElementById('create-project-modal').classList.add('open');
+            document.getElementById('project-name-input').value = '';
+        }
+
+        function closeCreateProjectModal() {
+            document.getElementById('create-project-modal').classList.remove('open');
+        }
+
+        // Project creation
+        function createNewProject() {
+            const nameInput = document.getElementById('project-name-input');
+            const projectName = nameInput.value.trim();
+            
+            if (!projectName) {
+                alert('Please enter a project name');
+                return;
+            }
+
+            try {
+                const fs = require('fs');
+                
+                // Create project directory
+                const projectDir = `./persistant-data/data/${projectName}`;
+                if (!fs.existsSync(projectDir)) {
+                    fs.mkdirSync(projectDir, { recursive: true });
+                    
+                    // Create idea.md file
+                    const ideaPath = `${projectDir}/idea.md`;
+                    const projectNameTitle = '#' + projectName.replace(/\\/g, '\\\\').replace(/\*/g, '\\*');
+                    fs.writeFileSync(ideaPath, projectNameTitle + '\n\n', 'utf8');
+                }
+
+                // Open the project
+                openProject(projectName);
+                
+                // Update currentFile to be idea.md (or whatever was just created)
+                currentFile = 'idea.md';
+                
+                closeCreateProjectModal();
+            } catch (e) {
+                console.error('Error creating project:', e);
+                alert('Error creating project: ' + e.message);
+            }
+        }
+
+        // Settings functions
+        function populateModelSelect() {
+            const select = document.getElementById('model-select');
+            const baseURL = settings.baseURL || 'http://localhost:1234/v1';
+            
+            // Load models from Flask endpoint (if available) or use predefined list
+            fetch('/models', { method: 'GET' })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.models && data.models.length > 0) {
+                        select.innerHTML = '<option value="">-- Choose a model --</option>';
+                        data.models.forEach(model => {
+                            const option = document.createElement('option');
+                            option.value = model;
+                            option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
+                            select.appendChild(option);
+                        });
+                    } else if (settings.endpoint === 'http://localhost:1234/v1') {
+                        // LM Studio default - show common models for user to choose from
+                        const models = ['llama-3.2', 'mistral', 'gemma', 'phi-3'];
+                        select.innerHTML = '<option value="">-- Choose a model --</option>';
+                        models.forEach(model => {
+                            const option = document.createElement('option');
+                            option.value = model;
+                            option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
+                            select.appendChild(option);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.log('Using default models:', err);
+                    // Fallback to common local LLM models
+                    const models = ['llama-3.2', 'mistral', 'gemma', 'phi-3'];
+                    select.innerHTML = '<option value="">-- Choose a model --</option>';
+                    models.forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model;
+                        option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
+                        select.appendChild(option);
+                    });
+                });
+        }
+
+        function testModel() {
+            const model = document.getElementById('model-select').value;
+            const prompt = document.getElementById('test-prompt').value;
+            const outputEl = document.getElementById('test-output');
+            
+            if (!model) {
+                alert('Please select a model first');
+                return;
+            }
+
+            try {
+                // Construct the API URL and payload
+                const baseURL = settings.baseURL || 'http://localhost:1234/v1';
+                
+                const output = `Sending request to ${baseURL}...\n\nModel: ${model}\nPrompt: ${prompt}`;
+                outputEl.value = output;
+
+                // Make the actual API call - include model in request if LM Studio supports it
+                let apiUrl = `${baseURL}/chat/completions`;
+                let payload = {
+                    messages: [{ role: 'user', content: prompt }]
+                };
+                
+                // Some models need to be specified at load time, not per-request
+                const headers = { 
+                    'Content-Type': 'application/json'
+                };
+                
+                if (settings.apiKey) {
+                    headers['Authorization'] = `Bearer ${settings.apiKey}`;
+                }
+                
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(payload)
+                }).then(async (resp) => {
+                    if (!resp.ok) {
+                        const text = await resp.text();
+                        throw new Error(`API Error ${resp.status}: ${text}`);
+                    }
+                    
+                    return resp.json();
+                }).then(data => {
+                    console.log('Model response:', data);
+                    
+                    // Extract and display the assistant message
+                    const msg = data.choices[0]?.message?.content || '(No assistant message found)';
+                    outputEl.value = `Response:\n${msg}\n\nContext Limit: ${settings.contextLimit || 'Not set (default)'}`;
+                }).catch(err => {
+                    console.error('Test error:', err);
+                    outputEl.value = `Error:\n${err.message}`;
+                });
+
+            } catch (e) {
+                console.error('Test error:', e);
+                alert('Error testing model: ' + e.message);
+            }
+        }
+
+        function saveSettings() {
+            const model = document.getElementById('model-select').value;
+            const contextLimitStr = document.getElementById('context-limit').value;
+            
+            if (!model) {
+                alert('Please select a model first');
+                return;
+            }
+
+            try {
+                const fs = require('fs');
+                
+                settings.model = model;
+                settings.contextLimit = parseInt(contextLimitStr) || 0;
+                
+                // Save to persistent storage
+                const settingsPath = './persistant-data/settings/settings.json';
+                const settingsData = {
+                    model: settings.model,
+                    contextLimit: settings.contextLimit,
+                    baseURL: settings.baseURL,
+                    apiKey: settings.apiKey
+                };
+                fs.writeFileSync(settingsPath, JSON.stringify(settingsData, null, 2), 'utf8');
+
+                alert('Settings saved successfully!');
+                closeSettingsModal();
+            } catch (e) {
+                console.error('Error saving settings:', e);
+                alert('Error saving settings: ' + e.message);
+            }
+        }
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            
+            // Check if we're on a Flask route or standalone
+            if (window.location.pathname === '/') {
+                showDashboard();
+            }
+            
+            // Keyboard shortcut for save (Ctrl/Cmd + S)
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    saveCurrentFile();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
