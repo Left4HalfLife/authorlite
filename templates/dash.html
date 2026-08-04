@@ -30,7 +30,8 @@
             border-bottom: 1px solid #3c3c3c;
             display: flex;
             align-items: center;
-            padding: 0 16px;
+            justify-content: center;
+            padding: 0 12px;
             z-index: 100;
         }
 
@@ -39,7 +40,35 @@
             font-weight: 600;
             color: #ffffff;
             text-decoration: none;
-            margin-right: auto;
+            margin: 0 auto;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border: 1px solid #4a4a4a;
+            background: #2d2d30;
+            color: #e2e2e2;
+            border-radius: 6px;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .mobile-nav-toggle:hover {
+            background: #39393e;
+        }
+
+        .mobile-nav-toggle.left {
+            left: 10px;
+        }
+
+        .mobile-nav-toggle.right {
+            right: 10px;
         }
 
         /* Left Navigation Column */
@@ -53,6 +82,109 @@
             border-right: 1px solid #3c3c3c;
             display: flex;
             flex-direction: column;
+        }
+
+        .progress-tracker {
+            margin-top: auto;
+            border-top: 1px solid #3c3c3c;
+            padding: 12px;
+        }
+
+        .progress-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #969696;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .progress-step {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            min-height: 36px;
+            padding-bottom: 8px;
+        }
+
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 18px;
+            width: 2px;
+            bottom: -2px;
+            background: #3c3c3c;
+        }
+
+        .progress-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #5f6a72;
+            background: #252526;
+            color: transparent;
+            font-size: 12px;
+            line-height: 14px;
+            text-align: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .progress-step.complete .progress-dot {
+            border-color: #2bbf6a;
+            background: #1a6038;
+            color: #d7ffe8;
+        }
+
+        .progress-step.active .progress-dot {
+            border-color: #4dcc80;
+            box-shadow: 0 0 0 4px rgba(45, 190, 112, 0.15), 0 0 10px rgba(45, 190, 112, 0.55);
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #aeb6bc;
+            line-height: 1.35;
+        }
+
+        .progress-step.complete .progress-label {
+            color: #e6eef3;
+        }
+
+        .progress-step.active .progress-label {
+            color: #f4fff8;
+            text-shadow: 0 0 6px rgba(43, 191, 106, 0.45);
+        }
+
+        .progress-subtext {
+            margin-top: 2px;
+            font-size: 11px;
+            color: #7f8b93;
+        }
+
+        .btn-start-writing {
+            margin-top: 8px;
+            width: 100%;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            background: #1f8f4c;
+            color: #eefcf4;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-start-writing:hover {
+            background: #27a457;
+        }
+
+        .btn-start-writing:disabled {
+            opacity: 0.65;
+            cursor: wait;
         }
 
         .nav-header {
@@ -118,6 +250,29 @@
             color: #cccccc;
             display: flex;
             align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .project-caret {
+            display: inline-block;
+            width: 14px;
+            margin-right: 6px;
+            text-align: center;
+            color: #9aa8b4;
+            flex-shrink: 0;
+            transition: transform 0.18s ease;
+            transform-origin: center;
+        }
+
+        .project-caret.expanded {
+            transform: rotate(90deg);
+        }
+
+        .project-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .project-item:hover {
@@ -129,10 +284,59 @@
             color: #ffffff;
         }
 
+        .project-files {
+            margin: 2px 0 8px 14px;
+            border-left: 1px solid #3c3c3c;
+            padding-left: 8px;
+        }
+
+        .file-item {
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #bdbdbd;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-item:hover {
+            background: #2a2d2e;
+            color: #ffffff;
+        }
+
+        .file-item.active {
+            background: #0f3f5c;
+            color: #ffffff;
+        }
+
+        .folder-item {
+            font-weight: 600;
+            color: #cfd9e0;
+        }
+
+        .file-item.empty-folder {
+            opacity: 0.65;
+            font-style: italic;
+            cursor: default;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 100%;
+            text-align: center;
+        }
+
         .btn-create-project {
-            width: calc(100% + 16px);
+            width: 100%;
             padding: 8px 12px;
-            margin: 8px 4px 0;
+            margin: 8px 0 10px;
             background: #0e639c;
             color: white;
             border: none;
@@ -147,6 +351,55 @@
 
         .btn-create-project:hover {
             background: #1177bb;
+        }
+
+        .length-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .length-option {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #3c3c3c;
+            background: #1f1f1f;
+            color: #cccccc;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, transform 0.15s;
+        }
+
+        .length-option:hover {
+            border-color: #5a5a5a;
+            background: #272727;
+        }
+
+        .length-option.active {
+            border-color: #0e639c;
+            background: #0f3f5c;
+            color: #ffffff;
+            box-shadow: inset 0 0 0 1px rgba(77, 177, 255, 0.3);
+        }
+
+        .length-option-title {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .length-option-meta {
+            display: block;
+            font-size: 12px;
+            line-height: 1.45;
+            color: #a8a8a8;
+        }
+
+        .length-option.active .length-option-meta {
+            color: #d7ebf9;
         }
 
         /* File Editor */
@@ -202,6 +455,31 @@
             overflow-y: auto;
         }
 
+        .editor-workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            height: calc(100% - 30px);
+        }
+
+        .editor-workspace.raw-only {
+            grid-template-columns: 1fr;
+        }
+
+        .editor-workspace.preview-only {
+            grid-template-columns: 1fr;
+        }
+
+        .editor-pane,
+        .preview-pane {
+            height: 100%;
+            min-height: 420px;
+            background: #1b1b1b;
+            border: 1px solid #3c3c3c;
+            border-radius: 6px;
+            overflow: auto;
+        }
+
         .editor-title {
             margin-bottom: 8px;
             font-size: 14px;
@@ -210,7 +488,7 @@
 
         textarea.editor {
             width: 100%;
-            height: calc(100% - 40px);
+            height: 100%;
             background: transparent;
             border: none;
             color: #d4d4d4;
@@ -219,6 +497,58 @@
             line-height: 1.5;
             resize: none;
             outline: none;
+            padding: 12px;
+        }
+
+        .preview-pane {
+            padding: 14px;
+            color: #d4d4d4;
+            line-height: 1.6;
+        }
+
+        .preview-pane h1,
+        .dashboard-welcome h1,
+        .dashboard-welcome h2,
+        .dashboard-welcome h3,
+        .preview-pane h2,
+        .preview-pane h3 {
+            color: #ffffff;
+            margin: 0.7em 0 0.4em;
+            line-height: 1.3;
+        }
+
+        .preview-pane p,
+        .dashboard-welcome p,
+        .dashboard-welcome li,
+        .preview-pane li {
+            margin: 0.5em 0;
+        }
+
+        .preview-pane code,
+        .dashboard-welcome code {
+            background: #2a2a2a;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .preview-pane pre,
+        .dashboard-welcome pre {
+            background: #151515;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+
+        .preview-pane a,
+        .dashboard-welcome a {
+            color: #4db1ff;
+        }
+
+        .mode-btn.active {
+            background: #107c10;
         }
 
         /* Info Panel */
@@ -398,9 +728,136 @@
             line-height: 1.6;
         }
 
+        /* Error Logs view needs its own scroll area because body is fixed-height/overflow hidden. */
+        #error-logs-view {
+            width: 100%;
+            align-items: stretch;
+            justify-content: flex-start;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        #error-logs-view .dashboard-welcome {
+            width: 100%;
+            max-width: none;
+            text-align: left;
+        }
+
+        #error-logs-content {
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        #settings-view {
+            width: 100%;
+            align-items: stretch;
+            justify-content: flex-start;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        #settings-view .dashboard-welcome {
+            width: 100%;
+            max-width: 760px;
+            text-align: left;
+        }
+
+        .settings-card {
+            background: #252526;
+            border: 1px solid #3c3c3c;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 14px;
+        }
+
         /* Hidden state */
         .hidden {
             display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                overflow: auto;
+            }
+
+            .mobile-nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .left-nav,
+            .file-explorer {
+                position: fixed;
+                top: 48px;
+                bottom: 0;
+                width: min(78vw, 300px);
+                height: calc(100vh - 48px);
+                z-index: 300;
+                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+            }
+
+            .left-nav {
+                left: auto;
+                right: 0;
+                border-left: 1px solid #3c3c3c;
+                border-right: none;
+            }
+
+            .file-explorer {
+                left: 0;
+                right: auto;
+            }
+
+            .left-nav.hidden,
+            .file-explorer.hidden {
+                display: none !important;
+            }
+
+            .main-content {
+                left: 0;
+                right: 0;
+                width: 100%;
+                overflow: auto;
+            }
+
+            .file-editor {
+                min-width: 0;
+            }
+
+            .editor-container {
+                padding: 10px;
+            }
+
+            .editor-workspace {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .editor-pane,
+            .preview-pane {
+                min-height: 280px;
+            }
+
+            .dashboard-view,
+            #settings-view,
+            #error-logs-view {
+                padding: 14px;
+            }
+
+            .info-panel {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: auto;
+                max-height: 32vh;
+                border-left: none;
+                border-top: 1px solid #3c3c3c;
+                z-index: 250;
+            }
         }
 
         /* Unsaved changes indicator */
@@ -422,7 +879,9 @@
 <body>
     <!-- Top Navbar -->
     <nav class="navbar">
+        <button type="button" class="mobile-nav-toggle left" onclick="toggleProjectsPanel()" aria-label="Toggle projects menu">☰</button>
         <a href="#" class="navbar-brand" onclick="navigateTo('dashboard')">AuthorLite</a>
+        <button type="button" class="mobile-nav-toggle right" onclick="toggleSidebarMenu()" aria-label="Toggle sidebar menu">☰</button>
     </nav>
 
     <!-- Left Navigation Column -->
@@ -436,15 +895,24 @@
             <span class="nav-icon">📁</span>
             Projects
         </a>
-        <a href="#" class="nav-item" id="nav-settings" onclick="openSettingsModal()">
+        <a href="#" class="nav-item" id="nav-errors" onclick="navigateTo('errors')">
+            <span class="nav-icon">⚠️</span>
+            Error Logs
+        </a>
+        <a href="#" class="nav-item" id="nav-settings" onclick="navigateTo('settings')">
             <span class="nav-icon">⚙️</span>
             Settings
         </a>
 
         <!-- Welcome Banner (only on dashboard) -->
-        <div id="welcome-banner" class="welcome-banner hidden">
+        <div id="welcome-banner" class="welcome-banner" hidden>
             <h2>Welcome to AuthorLite!</h2>
-            <p id="dashboard-readme"></p>
+            <p>What's up!?</p>
+        </div>
+
+        <div id="progress-tracker" class="progress-tracker">
+            <div class="progress-title">Project Progress</div>
+            <div id="progress-steps"></div>
         </div>
     </aside>
 
@@ -463,11 +931,19 @@
         <section id="file-editor" class="file-editor hidden">
             <div class="editor-toolbar">
                 <button class="btn" onclick="saveCurrentFile()">Save</button>
+                <button class="btn mode-btn active" id="mode-split" onclick="setEditorMode('split')">Split</button>
+                <button class="btn mode-btn" id="mode-raw" onclick="setEditorMode('raw')">Raw</button>
+                <button class="btn mode-btn" id="mode-preview" onclick="setEditorMode('preview')">Preview</button>
                 <span id="filename-display" style="font-size: 13px; color: #cccccc;"></span>
             </div>
             <div class="editor-container">
                 <div class="editor-title" id="editor-title"></div>
-                <textarea class="editor" id="editor-content" placeholder="Start typing here..."></textarea>
+                <div id="editor-workspace" class="editor-workspace">
+                    <div id="editor-pane" class="editor-pane">
+                        <textarea class="editor" id="editor-content" placeholder="Start typing here..."></textarea>
+                    </div>
+                    <div id="preview-pane" class="preview-pane"></div>
+                </div>
             </div>
         </section>
 
@@ -481,63 +957,70 @@
                 <div class="info-label">Character Count</div>
                 <div class="info-value" id="char-count">0 characters</div>
             </div>
-            <!-- Action buttons will be added here dynamically -->
+            <div class="info-section">
+                <div class="info-label">Actions</div>
+                <div id="action-buttons" class="action-buttons"></div>
+            </div>
         </aside>
 
         <!-- Dashboard View -->
-        <section id="dashboard-view" class="dashboard-view hidden">
-            <div class="dashboard-welcome" id="dashboard-content"></div>
+        <section id="dashboard-view" class="dashboard-view" hidden>
+            <!-- Container for README content displayed on the dashboard -->
+            <div class="dashboard-welcome" id="dashboard-readme"></div>
+        </section>
+
+        <section id="error-logs-view" class="dashboard-view hidden">
+            <div class="dashboard-welcome">
+                <h2>Error Logs</h2>
+                <p style="margin-bottom: 14px; color: #bdbdbd;">Most recent backend and UI errors.</p>
+                <div id="error-logs-content"></div>
+            </div>
+        </section>
+
+        <section id="settings-view" class="dashboard-view hidden">
+            <div class="dashboard-welcome">
+                <h2>LLM Settings</h2>
+                <p style="margin-bottom: 10px; color: #bdbdbd;">Configure model and context settings for generation.</p>
+
+                <div class="settings-card">
+                    <form id="settings-form" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="form-label">Select Model</label>
+                            <select class="form-control" id="model-select">
+                                <option value="">-- Choose a model --</option>
+                                <!-- Models will be populated dynamically via AJAX -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Context Limit (tokens, number only)</label>
+                            <input type="number" class="form-control" id="context-limit" min="0" step="1" placeholder="Enter context limit in tokens">
+                        </div>
+                    </form>
+
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #3c3c3c;">
+                        <h4 style="color: #cccccc; font-size: 13px; margin-bottom: 10px;">Test Connection</h4>
+                        <div class="form-group">
+                            <label class="form-label">Test Prompt</label>
+                            <textarea class="form-control" id="test-prompt" rows="2" placeholder="Enter a test prompt...">Hello! Can you tell me about yourself?</textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-success" onclick="testModel()">Test</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn" id="save-settings-btn" onclick="saveSettings()">Save Settings</button>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <label class="form-label">Test Response</label>
+                            <textarea class="form-control" id="test-output" rows="4" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-
-    <!-- Settings Modal (LLM Configuration) -->
-    <div class="modal-overlay" id="settings-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title">LLM Settings</h3>
-                <button class="btn-close" onclick="closeSettingsModal()">×</button>
-            </div>
-            <div class="modal-body">
-                <form id="settings-form" onsubmit="return false;">
-                    <div class="form-group">
-                        <label class="form-label">Select Model</label>
-                        <select class="form-control" id="model-select">
-                            <option value="">-- Choose a model --</option>
-                            <!-- Models will be populated dynamically via AJAX -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Context Limit (tokens, number only)</label>
-                        <input type="number" class="form-control" id="context-limit" min="0" step="1" placeholder="Enter context limit in tokens">
-                    </div>
-                </div>
-
-                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #3c3c3c;">
-                    <h4 style="color: #cccccc; font-size: 13px; margin-bottom: 10px;">Test Connection</h4>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Test Prompt</label>
-                        <textarea class="form-control" id="test-prompt" rows="2" placeholder="Enter a test prompt...">Hello! Can you tell me about yourself?</textarea>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <button class="btn btn-success" onclick="testModel()">Test</button>
-                        </div>
-                        <div class="col">
-                            <button class="btn" id="save-settings-btn" onclick="saveSettings()">Save Settings</button>
-                        </div>
-                    </div>
-
-                    <!-- Test Response Area -->
-                    <div style="margin-top: 15px;">
-                        <label class="form-label">Test Response</label>
-                        <textarea class="form-control" id="test-output" rows="4" readonly></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Create Project Modal -->
     <div class="modal-overlay" id="create-project-modal">
@@ -551,6 +1034,27 @@
                     <label class="form-label">Project Name</label>
                     <input type="text" class="form-control" id="project-name-input" placeholder="Enter project name">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Length</label>
+                    <div class="length-options" id="length-options">
+                        <button type="button" class="length-option" data-length="short-story" onclick="selectStoryLength('short-story')">
+                            <span class="length-option-title">Short Story</span>
+                            <span class="length-option-meta">10,000 words · 5 chapters · ~2,000 words per chapter</span>
+                        </button>
+                        <button type="button" class="length-option active" data-length="novella" onclick="selectStoryLength('novella')">
+                            <span class="length-option-title">Novella</span>
+                            <span class="length-option-meta">20,000 words · 10 chapters · ~2,000 words per chapter</span>
+                        </button>
+                        <button type="button" class="length-option" data-length="novel" onclick="selectStoryLength('novel')">
+                            <span class="length-option-title">Novel</span>
+                            <span class="length-option-meta">50,000 words · 15 chapters · ~3,300 words per chapter</span>
+                        </button>
+                        <button type="button" class="length-option" data-length="epic" onclick="selectStoryLength('epic')">
+                            <span class="length-option-title">Epic</span>
+                            <span class="length-option-meta">80,000 words · 24 chapters · ~3,300 words per chapter</span>
+                        </button>
+                    </div>
+                </div>
                 <button class="btn btn-success btn-block" onclick="createNewProject()">Create Project</button>
             </div>
         </div>
@@ -560,11 +1064,29 @@
     <iframe id="model-discovery-frame" style="display:none;"></iframe>
     <iframe id="chat-frame" style="display:none;"></iframe>
 
+    <!-- Include local marked.js for Markdown rendering (no CDN dependency) -->
+    <script src="/static/marked.min.js"></script>
+
     <script>
         // Application state
         let currentProject = null;
-        let currentFile = 'idea.md';
+        let currentFile = 'IDEA.md';
+        const expandedProjects = new Set();
+        const projectFilesCache = new Map();
+        let progressViewMode = 'planning';
+        let writingProgress = {
+            totalChapters: 0,
+            writtenChapters: 0,
+            chapterNumbers: [],
+            writingStarted: false,
+            currentChapter: 0,
+            overallStatus: 'not_started',
+            targetWordsPerChapter: 0,
+            chapterStates: {}
+        };
         let unsavedChanges = false;
+        let editorMode = 'split';
+        let selectedStoryLength = 'novella';
         let settings = {
             model: '',
             contextLimit: 0,
@@ -572,31 +1094,900 @@
             apiKey: ''
         };
 
-        // Load saved settings on startup
-        function loadSettings() {
+        const storyLengthOptions = {
+            'short-story': {
+                storyType: 'Short Story',
+                totalWords: 10000,
+                totalChapters: 5,
+                approxWordsPerChapter: 2000
+            },
+            novella: {
+                storyType: 'Novella',
+                totalWords: 20000,
+                totalChapters: 10,
+                approxWordsPerChapter: 2000
+            },
+            novel: {
+                storyType: 'Novel',
+                totalWords: 50000,
+                totalChapters: 15,
+                approxWordsPerChapter: 3300
+            },
+            epic: {
+                storyType: 'Epic',
+                totalWords: 80000,
+                totalChapters: 24,
+                approxWordsPerChapter: 3300
+            }
+        };
+
+        async function logClientError(eventName, message, context = {}) {
             try {
-                const fs = require('fs');
-                
-                // Try to load from Flask's persistent storage path (will be mounted)
-                const settingsPath = './persistant-data/settings/settings.json';
-                if (fs.existsSync(settingsPath)) {
-                    const data = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
-                    settings.model = data.model || '';
-                    settings.contextLimit = data.contextLimit || 0;
-                    settings.baseURL = data.baseURL || 'http://localhost:1234/v1';
-                    settings.apiKey = data.apiKey || '';
-                } else {
-                    // Default settings for local LM Studio
-                    settings.baseURL = 'http://localhost:1234/v1';
-                    settings.apiKey = '';
-                }
+                await fetch('/client-error', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        event: eventName,
+                        message,
+                        context
+                    })
+                });
             } catch (e) {
-                console.error('Error loading settings:', e);
+                console.error('Failed to write client error log:', e);
+            }
+        }
+
+        async function apiRequestJson(url, options = {}, requestName = 'api_request', acceptedStatuses = []) {
+            let response;
+            let rawText = '';
+
+            try {
+                response = await fetch(url, options);
+                rawText = await response.text();
+            } catch (networkError) {
+                await logClientError('network_error', networkError.message, {
+                    requestName,
+                    url,
+                    method: options.method || 'GET'
+                });
+                throw networkError;
+            }
+
+            let payload = {};
+            if (rawText && rawText.trim()) {
+                try {
+                    payload = JSON.parse(rawText);
+                } catch (parseError) {
+                    await logClientError('json_parse_error', parseError.message, {
+                        requestName,
+                        url,
+                        method: options.method || 'GET',
+                        status: response.status,
+                        bodySnippet: rawText.slice(0, 500)
+                    });
+                    throw new Error(`Server returned non-JSON response (HTTP ${response.status}). Check Error Logs.`);
+                }
+            }
+
+            const isAcceptedStatus = response.ok || acceptedStatuses.includes(response.status);
+            if (!isAcceptedStatus) {
+                const errorMessage = payload.error || payload.message || `Request failed (${response.status})`;
+                await logClientError('api_error_response', errorMessage, {
+                    requestName,
+                    url,
+                    method: options.method || 'GET',
+                    status: response.status,
+                    logId: payload.logId || null
+                });
+                const suffix = payload.logId ? ` (logId: ${payload.logId})` : '';
+                throw new Error(errorMessage + suffix);
+            }
+
+            return payload;
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;');
+        }
+
+        function renderMarkdownInto(targetEl, markdownText) {
+            if (window.marked && typeof window.marked.parse === 'function') {
+                targetEl.innerHTML = window.marked.parse(markdownText);
+                return;
+            }
+
+            // Safe fallback if marked is unavailable.
+            targetEl.innerHTML = `<pre>${escapeHtml(markdownText)}</pre>`;
+        }
+
+        function renderEditorPreview() {
+            const content = document.getElementById('editor-content').value;
+            const preview = document.getElementById('preview-pane');
+            if (isJsonFile(currentFile)) {
+                preview.innerHTML = `<pre>${escapeHtml(content)}</pre>`;
+            } else {
+                renderMarkdownInto(preview, content);
+            }
+            updateWordCount(content);
+        }
+
+        function isJsonFile(filename) {
+            return (filename || '').toLowerCase().endsWith('.json');
+        }
+
+        function selectStoryLength(lengthKey) {
+            selectedStoryLength = lengthKey;
+
+            document.querySelectorAll('.length-option').forEach((button) => {
+                button.classList.toggle('active', button.dataset.length === lengthKey);
+            });
+        }
+
+        function renderActionButtons() {
+            const actionsEl = document.getElementById('action-buttons');
+            if (!actionsEl) return;
+
+            actionsEl.innerHTML = '';
+
+            const upperFile = (currentFile || '').toUpperCase();
+            const isChapterSelection = upperFile === 'CHAPTERS' || upperFile.startsWith('CHAPTERS/');
+            const hasBookPlan = currentProject && projectFilesCache.has(currentProject)
+                ? projectFilesCache.get(currentProject).has('BOOK_PLAN.MD')
+                : false;
+
+            if (hasBookPlan && isChapterSelection) {
+                const btnNext = document.createElement('button');
+                btnNext.className = 'btn action-btn';
+                btnNext.textContent = 'Generate Next Chapter';
+                btnNext.onclick = () => {
+                    generateNextChapter(btnNext);
+                };
+                actionsEl.appendChild(btnNext);
+
+                const btnAuto = document.createElement('button');
+                btnAuto.className = 'btn action-btn';
+                btnAuto.textContent = 'Auto-Write Remaining';
+                btnAuto.onclick = () => {
+                    autoWriteRemaining(btnAuto);
+                };
+                actionsEl.appendChild(btnAuto);
+
+                const btnResume = document.createElement('button');
+                btnResume.className = 'btn action-btn';
+                btnResume.textContent = 'Resume Writing';
+                btnResume.onclick = () => {
+                    resumeWritingSequence(btnResume);
+                };
+                actionsEl.appendChild(btnResume);
+
+                const btnRetry = document.createElement('button');
+                btnRetry.className = 'btn action-btn';
+                btnRetry.textContent = 'Retry Failed Chapter';
+                btnRetry.onclick = () => {
+                    retryFailedChapter(btnRetry);
+                };
+                actionsEl.appendChild(btnRetry);
+
+                if (isChapterSelection) {
+                    const btnRedo = document.createElement('button');
+                    btnRedo.className = 'btn action-btn';
+                    btnRedo.textContent = 'Regenerate This Chapter';
+                    btnRedo.onclick = () => {
+                        regenerateSelectedChapter(btnRedo);
+                    };
+                    actionsEl.appendChild(btnRedo);
+                }
+            }
+
+            if (upperFile === 'IDEA.MD') {
+                const btn = document.createElement('button');
+                btn.className = 'btn action-btn';
+                btn.textContent = 'Generate Premise';
+                btn.onclick = () => {
+                    generatePremiseFromIdea(btn);
+                };
+                actionsEl.appendChild(btn);
+            } else if (upperFile === 'PREMISE.MD') {
+                const btn = document.createElement('button');
+                btn.className = 'btn action-btn';
+                btn.textContent = 'Generate Character Profiles';
+                btn.onclick = () => {
+                    generateCharacterProfiles(btn);
+                };
+                actionsEl.appendChild(btn);
+            } else if (upperFile === 'CHARACTER_PROFILES.MD') {
+                const btn = document.createElement('button');
+                btn.className = 'btn action-btn';
+                btn.textContent = 'Generate Synopsis';
+                btn.onclick = () => {
+                    generateSynopsis(btn);
+                };
+                actionsEl.appendChild(btn);
+            } else if (upperFile === 'SYNOPSIS.MD') {
+                const btn = document.createElement('button');
+                btn.className = 'btn action-btn';
+                btn.textContent = 'Generate Book Plan';
+                btn.onclick = () => {
+                    generateBookPlan(btn);
+                };
+                actionsEl.appendChild(btn);
+            } else if (upperFile === 'BOOK_PLAN.MD') {
+                const btn = document.createElement('button');
+                btn.className = 'btn action-btn';
+                btn.textContent = 'Apply Revisions';
+                btn.onclick = () => {
+                    applyBookPlanRevisions(btn);
+                };
+                actionsEl.appendChild(btn);
+            }
+        }
+
+        function getSelectedChapterNumber() {
+            const normalized = (currentFile || '').toUpperCase();
+            const directMatch = normalized.match(/^CHAPTER_(\d+)\.MD$/i);
+            if (directMatch) {
+                return Number(directMatch[1]);
+            }
+
+            const nestedMatch = normalized.match(/^CHAPTERS\/CHAPTER_(\d+)\.MD$/i);
+            if (nestedMatch) {
+                return Number(nestedMatch[1]);
+            }
+
+            return null;
+        }
+
+        function getFirstFailedChapterNumber() {
+            const chapterStates = writingProgress.chapterStates || {};
+            const failed = Object.keys(chapterStates)
+                .map((k) => Number(k))
+                .filter((n) => Number.isInteger(n) && n > 0 && chapterStates[String(n)]?.status === 'failed')
+                .sort((a, b) => a - b);
+            return failed.length ? failed[0] : null;
+        }
+
+        async function reloadProjectAndOpenChapter(chapterNumber) {
+            await loadProjectList();
+            if (!chapterNumber || !currentProject) return;
+            await loadFile(currentProject, `Chapters/CHAPTER_${chapterNumber}.md`);
+        }
+
+        async function generateNextChapter(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Generating...';
+
+            try {
+                const nextChapter = Number(writingProgress.currentChapter) || (Number(writingProgress.writtenChapters) + 1);
+                const payload = await apiRequestJson('/generate-chapter', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ project: currentProject, chapterNumber: nextChapter })
+                }, 'generate_next_chapter');
+
+                await refreshWritingProgress();
+                await reloadProjectAndOpenChapter(payload.chapterNumber || nextChapter);
+                renderProgressTracker();
+                renderActionButtons();
+            } catch (error) {
+                console.error('Error generating next chapter:', error);
+                await logClientError('generate_next_chapter_failed', error.message, { currentProject, currentFile });
+                alert('Error generating next chapter: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function autoWriteRemaining(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Writing...';
+
+            try {
+                const startChapter = Number(writingProgress.currentChapter) || (Number(writingProgress.writtenChapters) + 1);
+                const payload = await apiRequestJson('/generate-all-chapters', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ project: currentProject, startChapter })
+                }, 'auto_write_remaining', [502]);
+
+                await refreshWritingProgress();
+                const latestChapter = (writingProgress.chapterNumbers || []).slice(-1)[0];
+                await reloadProjectAndOpenChapter(latestChapter);
+                renderProgressTracker();
+                renderActionButtons();
+
+                if (payload.status === 'paused_failed') {
+                    alert(`Auto-write paused on Chapter ${payload.failedChapter}. Fix or retry that chapter, then resume.`);
+                }
+            } catch (error) {
+                console.error('Error auto-writing chapters:', error);
+                await logClientError('auto_write_remaining_failed', error.message, { currentProject, currentFile });
+                alert('Error auto-writing chapters: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function resumeWritingSequence(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Resuming...';
+
+            try {
+                const payload = await apiRequestJson('/resume-writing', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ project: currentProject })
+                }, 'resume_writing', [502]);
+
+                await refreshWritingProgress();
+                const latestChapter = (writingProgress.chapterNumbers || []).slice(-1)[0];
+                await reloadProjectAndOpenChapter(latestChapter);
+                renderProgressTracker();
+                renderActionButtons();
+
+                if (payload.status === 'paused_failed') {
+                    alert(`Resume paused on Chapter ${payload.failedChapter}.`);
+                }
+            } catch (error) {
+                console.error('Error resuming writing:', error);
+                await logClientError('resume_writing_failed', error.message, { currentProject, currentFile });
+                alert('Error resuming writing: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function retryFailedChapter(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const failedChapter = getFirstFailedChapterNumber();
+            if (!failedChapter) {
+                alert('No failed chapter found.');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Retrying...';
+
+            try {
+                const payload = await apiRequestJson('/generate-chapter', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ project: currentProject, chapterNumber: failedChapter, forceRegenerate: true })
+                }, 'retry_failed_chapter');
+
+                await refreshWritingProgress();
+                await reloadProjectAndOpenChapter(failedChapter);
+                renderProgressTracker();
+                renderActionButtons();
+            } catch (error) {
+                console.error('Error retrying failed chapter:', error);
+                await logClientError('retry_failed_chapter_failed', error.message, { currentProject, failedChapter });
+                alert('Error retrying failed chapter: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function regenerateSelectedChapter(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const chapterNumber = getSelectedChapterNumber();
+            if (!chapterNumber) {
+                alert('Select a chapter file first.');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Regenerating...';
+
+            try {
+                const payload = await apiRequestJson('/generate-chapter', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ project: currentProject, chapterNumber, forceRegenerate: true })
+                }, 'regenerate_selected_chapter');
+
+                await refreshWritingProgress();
+                await reloadProjectAndOpenChapter(chapterNumber);
+                renderProgressTracker();
+                renderActionButtons();
+            } catch (error) {
+                console.error('Error regenerating chapter:', error);
+                await logClientError('regenerate_selected_chapter_failed', error.message, { currentProject, chapterNumber });
+                alert('Error regenerating chapter: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        function setProgressModeForSelection(selectionPath, isFolder = false) {
+            const normalized = (selectionPath || '').toUpperCase();
+            const isChaptersFolder = isFolder && normalized === 'CHAPTERS';
+            const isChapterFile = normalized.startsWith('CHAPTERS/') || /^CHAPTER_\d+\.MD$/i.test(normalized);
+            progressViewMode = (isChaptersFolder || isChapterFile) ? 'writing' : 'planning';
+        }
+
+        async function refreshWritingProgress() {
+            if (!currentProject) {
+                writingProgress = {
+                    totalChapters: 0,
+                    writtenChapters: 0,
+                    chapterNumbers: [],
+                    writingStarted: false,
+                    currentChapter: 0,
+                    overallStatus: 'not_started',
+                    targetWordsPerChapter: 0,
+                    chapterStates: {}
+                };
+                return;
+            }
+
+            try {
+                const payload = await apiRequestJson(`/writing-progress?project=${encodeURIComponent(currentProject)}`, {}, 'writing_progress');
+                writingProgress = {
+                    totalChapters: Number(payload.totalChapters) || 0,
+                    writtenChapters: Number(payload.writtenChapters) || 0,
+                    chapterNumbers: Array.isArray(payload.chapterNumbers) ? payload.chapterNumbers : [],
+                    writingStarted: Boolean(payload.writingStarted),
+                    currentChapter: Number(payload.currentChapter) || 0,
+                    overallStatus: String(payload.overallStatus || 'not_started'),
+                    targetWordsPerChapter: Number(payload.targetWordsPerChapter) || 0,
+                    chapterStates: (payload.chapterStates && typeof payload.chapterStates === 'object') ? payload.chapterStates : {}
+                };
+            } catch (e) {
+                console.error('Error loading writing progress:', e);
+                await logClientError('refresh_writing_progress_failed', e.message, { currentProject });
+            }
+        }
+
+        function renderProgressTracker() {
+            const stepsEl = document.getElementById('progress-steps');
+            if (!stepsEl) return;
+
+            const planningSteps = [
+                { title: '0. Brainstorm Idea', requiredFile: null },
+                { title: '1. Build Premise', requiredFile: 'IDEA.md' },
+                { title: '2. Write Characters', requiredFile: 'PREMISE.md' },
+                { title: '3. Develop Synopsis', requiredFile: 'CHARACTER_PROFILES.md' },
+                { title: '4. Final review', requiredFile: 'SYNOPSIS.md' },
+                { title: '5. Ready to write!', requiredFile: 'BOOK_PLAN.md' }
+            ];
+
+            const fileSet = currentProject && projectFilesCache.has(currentProject)
+                ? projectFilesCache.get(currentProject)
+                : new Set();
+
+            stepsEl.innerHTML = '';
+
+            const useWritingStage = progressViewMode === 'writing';
+            if (useWritingStage) {
+                const total = writingProgress.totalChapters || 0;
+                const written = writingProgress.writtenChapters || 0;
+                const isDone = total > 0 && written >= total;
+
+                const row = document.createElement('div');
+                row.className = 'progress-step complete' + (isDone ? '' : ' active');
+
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                dot.textContent = isDone ? '✓' : '•';
+
+                const textWrap = document.createElement('div');
+                const title = document.createElement('div');
+                title.className = 'progress-label';
+                title.textContent = 'Writing Stage';
+                textWrap.appendChild(title);
+
+                const sub = document.createElement('div');
+                sub.className = 'progress-subtext';
+                sub.textContent = total > 0
+                    ? `Chapters written: ${written}/${total}`
+                    : `Chapters written: ${written}`;
+                textWrap.appendChild(sub);
+
+                const nextSub = document.createElement('div');
+                nextSub.className = 'progress-subtext';
+                const nextChapter = Number(writingProgress.currentChapter) || (written + 1);
+                nextSub.textContent = total > 0 && nextChapter <= total
+                    ? `Next chapter: ${nextChapter} · Status: ${writingProgress.overallStatus || 'in_progress'}`
+                    : `Status: ${writingProgress.overallStatus || 'in_progress'}`;
+                textWrap.appendChild(nextSub);
+
+                const chapterStates = writingProgress.chapterStates || {};
+                const statusCounts = { completed: 0, failed: 0, in_progress: 0, pending: 0 };
+                Object.keys(chapterStates).forEach((key) => {
+                    const status = String(chapterStates[key]?.status || 'pending');
+                    if (Object.prototype.hasOwnProperty.call(statusCounts, status)) {
+                        statusCounts[status] += 1;
+                    }
+                });
+                const summarySub = document.createElement('div');
+                summarySub.className = 'progress-subtext';
+                summarySub.textContent = `Chapter states - done: ${statusCounts.completed}, failed: ${statusCounts.failed}, running: ${statusCounts.in_progress}, pending: ${statusCounts.pending}`;
+                textWrap.appendChild(summarySub);
+
+                const failedChapter = getFirstFailedChapterNumber();
+                if (failedChapter) {
+                    const failedInfo = writingProgress.chapterStates?.[String(failedChapter)] || {};
+                    const failSub = document.createElement('div');
+                    failSub.className = 'progress-subtext';
+                    failSub.textContent = `Failed chapter: ${failedChapter}${failedInfo.lastError ? ` (${failedInfo.lastError})` : ''}`;
+                    textWrap.appendChild(failSub);
+                }
+
+                row.appendChild(dot);
+                row.appendChild(textWrap);
+                stepsEl.appendChild(row);
+                return;
+            }
+
+            const completedCount = planningSteps.reduce((count, step) => {
+                if (!step.requiredFile) {
+                    return count + (currentProject ? 1 : 0);
+                }
+                return count + (fileSet.has(step.requiredFile.toUpperCase()) ? 1 : 0);
+            }, 0);
+            const activeIndex = currentProject
+                ? Math.min(completedCount, planningSteps.length - 1)
+                : 0;
+
+            planningSteps.forEach((step, index) => {
+                const row = document.createElement('div');
+                const isComplete = step.requiredFile
+                    ? fileSet.has(step.requiredFile.toUpperCase())
+                    : Boolean(currentProject);
+                const isActive = index === activeIndex;
+                row.className = 'progress-step' + (isComplete ? ' complete' : '') + (isActive ? ' active' : '');
+
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                dot.textContent = isComplete ? '✓' : '•';
+
+                const textWrap = document.createElement('div');
+                const title = document.createElement('div');
+                title.className = 'progress-label';
+                title.textContent = step.title;
+                textWrap.appendChild(title);
+
+                if (step.requiredFile) {
+                    const sub = document.createElement('div');
+                    sub.className = 'progress-subtext';
+                    sub.textContent = `Needs ${step.requiredFile}`;
+                    textWrap.appendChild(sub);
+
+                    const hasChaptersFolder = Array.from(fileSet).some((name) => name === 'CHAPTERS' || name.startsWith('CHAPTERS/'));
+                    if (step.requiredFile.toUpperCase() === 'BOOK_PLAN.MD' && isComplete && !hasChaptersFolder) {
+                        const startBtn = document.createElement('button');
+                        startBtn.className = 'btn-start-writing';
+                        startBtn.textContent = 'Start Writing!';
+                        startBtn.onclick = async () => {
+                            startBtn.disabled = true;
+                            startBtn.textContent = 'Starting...';
+                            try {
+                                await apiRequestJson('/start-writing', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'},
+                                    body: JSON.stringify({project: currentProject})
+                                }, 'start_writing');
+
+                                await refreshWritingProgress();
+                                await loadProjectList();
+                                renderProgressTracker();
+                                alert('Writing stage initialized. Chapters folder created.');
+                            } catch (err) {
+                                console.error('Error starting writing stage:', err);
+                                await logClientError('start_writing_failed', err.message, { currentProject });
+                                alert('Error starting writing stage: ' + err.message);
+                                startBtn.disabled = false;
+                                startBtn.textContent = 'Start Writing!';
+                            }
+                        };
+                        textWrap.appendChild(startBtn);
+                    }
+                }
+
+                row.appendChild(dot);
+                row.appendChild(textWrap);
+                stepsEl.appendChild(row);
+            });
+        }
+
+        async function generatePremiseFromIdea(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Generating...';
+
+            try {
+                const payload = await apiRequestJson('/generate-premise', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({project: currentProject})
+                }, 'generate_premise');
+
+                await loadProjectList();
+                await loadFile(currentProject, payload.filename || 'PREMISE.md');
+                alert('Premise generated successfully!');
+            } catch (error) {
+                console.error('Error generating premise:', error);
+                await logClientError('generate_premise_failed', error.message, { currentProject });
+                alert('Error generating premise: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function generateCharacterProfiles(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Generating...';
+
+            try {
+                const payload = await apiRequestJson('/generate-character-profiles', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({project: currentProject})
+                }, 'generate_character_profiles');
+
+                await loadProjectList();
+                await loadFile(currentProject, payload.filename || 'CHARACTER_PROFILES.md');
+                alert('Character profiles generated successfully!');
+            } catch (error) {
+                console.error('Error generating character profiles:', error);
+                await logClientError('generate_character_profiles_failed', error.message, { currentProject });
+                alert('Error generating character profiles: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function generateSynopsis(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Generating...';
+
+            try {
+                const payload = await apiRequestJson('/generate-synopsis', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({project: currentProject})
+                }, 'generate_synopsis');
+
+                await loadProjectList();
+                await loadFile(currentProject, payload.filename || 'SYNOPSIS.md');
+                alert('Synopsis generated successfully!');
+            } catch (error) {
+                console.error('Error generating synopsis:', error);
+                await logClientError('generate_synopsis_failed', error.message, { currentProject });
+                alert('Error generating synopsis: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function generateBookPlan(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Generating...';
+
+            try {
+                const payload = await apiRequestJson('/generate-book-plan', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({project: currentProject})
+                }, 'generate_book_plan');
+
+                await loadProjectList();
+                await loadFile(currentProject, payload.filename || 'BOOK_PLAN.md');
+                alert('Book plan generated successfully!');
+            } catch (error) {
+                console.error('Error generating book plan:', error);
+                await logClientError('generate_book_plan_failed', error.message, { currentProject });
+                alert('Error generating book plan: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        async function applyBookPlanRevisions(buttonEl) {
+            if (!currentProject) {
+                alert('Open a project first');
+                return;
+            }
+
+            const originalLabel = buttonEl.textContent;
+            buttonEl.disabled = true;
+            buttonEl.textContent = 'Applying...';
+
+            try {
+                const payload = await apiRequestJson('/apply-book-plan-revisions', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({project: currentProject})
+                }, 'apply_book_plan_revisions');
+
+                await loadProjectList();
+                await loadFile(currentProject, payload.filename || 'BOOK_PLAN.md');
+                alert('Revisions applied across project files.');
+            } catch (error) {
+                console.error('Error applying revisions:', error);
+                await logClientError('apply_book_plan_revisions_failed', error.message, { currentProject });
+                alert('Error applying revisions: ' + error.message);
+            } finally {
+                buttonEl.disabled = false;
+                buttonEl.textContent = originalLabel;
+            }
+        }
+
+        function setEditorMode(mode) {
+            editorMode = mode;
+
+            const workspace = document.getElementById('editor-workspace');
+            const editorPane = document.getElementById('editor-pane');
+            const previewPane = document.getElementById('preview-pane');
+
+            document.querySelectorAll('.mode-btn').forEach((btn) => btn.classList.remove('active'));
+            document.getElementById(`mode-${mode}`).classList.add('active');
+
+            workspace.classList.remove('raw-only', 'preview-only');
+            editorPane.classList.remove('hidden');
+            previewPane.classList.remove('hidden');
+
+            if (mode === 'raw') {
+                workspace.classList.add('raw-only');
+                previewPane.classList.add('hidden');
+            } else if (mode === 'preview') {
+                workspace.classList.add('preview-only');
+                editorPane.classList.add('hidden');
+            }
+        }
+
+        function hideFileEditor() {
+            document.getElementById('file-editor').classList.add('hidden');
+            document.getElementById('info-panel').classList.add('hidden');
+        }
+
+        function showEditor() {
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('error-logs-view').classList.add('hidden');
+            document.getElementById('settings-view').classList.add('hidden');
+            document.getElementById('file-editor').classList.remove('hidden');
+            document.getElementById('info-panel').classList.remove('hidden');
+        }
+
+        function renderErrorLogs(logs) {
+            const container = document.getElementById('error-logs-content');
+            if (!container) return;
+
+            if (!Array.isArray(logs) || logs.length === 0) {
+                container.innerHTML = '<div style="color:#bdbdbd;">No error logs found.</div>';
+                return;
+            }
+
+            container.innerHTML = logs.map((entry) => {
+                const id = escapeHtml(String(entry.id || 'n/a'));
+                const ts = escapeHtml(String(entry.timestamp || 'n/a'));
+                const event = escapeHtml(String(entry.event || 'unknown'));
+                const msg = escapeHtml(String(entry.message || ''));
+                const ctx = escapeHtml(JSON.stringify(entry.context || {}, null, 2));
+                const stack = entry.stack ? `<details style="margin-top:8px;"><summary>Stack</summary><pre style="white-space:pre-wrap;">${escapeHtml(String(entry.stack))}</pre></details>` : '';
+
+                return `
+                    <div style="border:1px solid #3a3a3a;border-radius:8px;padding:12px;margin-bottom:10px;background:#1f1f1f;">
+                        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+                            <strong>${event}</strong>
+                            <span style="color:#9e9e9e;">${ts}</span>
+                        </div>
+                        <div style="margin-top:6px;color:#ffb3b3;">${msg}</div>
+                        <div style="margin-top:6px;color:#bdbdbd;font-size:12px;">logId: ${id}</div>
+                        <details style="margin-top:8px;"><summary>Context</summary><pre style="white-space:pre-wrap;">${ctx}</pre></details>
+                        ${stack}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function showErrorLogs() {
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('settings-view').classList.add('hidden');
+            hideFileEditor();
+            document.getElementById('file-explorer').classList.add('hidden');
+            document.getElementById('error-logs-view').classList.remove('hidden');
+
+            try {
+                const payload = await apiRequestJson('/error-logs?limit=200', {}, 'load_error_logs');
+                renderErrorLogs(payload.logs || []);
+            } catch (error) {
+                console.error('Error loading error logs:', error);
+                await logClientError('show_error_logs_failed', error.message, {});
+                renderErrorLogs([]);
+            }
+        }
+
+        // Load saved settings on startup (async)
+        async function loadSettings() {
+            try {
+                const data = await apiRequestJson('/get-settings', {}, 'get_settings');
+                
+                if (data.model) {
+                    settings.model = data.model;
+                }
+
+                await populateModelSelect(settings.model || '');
+                
+                if (data.contextLimit) {
+                    settings.contextLimit = data.contextLimit;
+                    document.getElementById('context-limit').value = data.contextLimit;
+                } else {
+                    // Blank context limit if model wasn't saved or loading fresh
+                    document.getElementById('context-limit').value = '';
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+                await logClientError('load_settings_failed', error.message, {});
             }
         }
 
         // Navigation logic
         function navigateTo(view) {
+            closeMobileMenus();
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             
             if (view === 'dashboard') {
@@ -606,107 +1997,347 @@
                 document.getElementById('nav-files').classList.add('active');
                 loadProjectList();
                 document.getElementById('file-explorer').classList.remove('hidden');
+                hideFileEditor();
+                document.getElementById('dashboard-view').classList.add('hidden');
+                document.getElementById('error-logs-view').classList.add('hidden');
+                document.getElementById('settings-view').classList.add('hidden');
+            } else if (view === 'errors') {
+                document.getElementById('nav-errors').classList.add('active');
+                showErrorLogs();
+            } else if (view === 'settings') {
+                document.getElementById('nav-settings').classList.add('active');
+                showSettingsView();
+            }
+        }
+
+        async function showSettingsView() {
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('error-logs-view').classList.add('hidden');
+            hideFileEditor();
+            document.getElementById('file-explorer').classList.add('hidden');
+            document.getElementById('settings-view').classList.remove('hidden');
+
+            if (settings.contextLimit) {
+                document.getElementById('context-limit').value = settings.contextLimit;
+            } else {
+                document.getElementById('context-limit').value = '';
             }
 
-            hideFileEditor();
+            await populateModelSelect(settings.model || document.getElementById('model-select').value || '');
         }
 
         function showFileExplorer() {
+            // Toggle visibility of the file explorer. If already visible, hide it.
+            const explorer = document.getElementById('file-explorer');
+            if (!explorer.classList.contains('hidden')) {
+                explorer.classList.add('hidden');
+                return;
+            }
+
             navigateTo('projects');
-            const projectPath = './persistant-data/data';
-            
-            if (currentProject) {
-                loadProjectTree(projectPath + '/' + currentProject);
+        }
+
+        function closeMobileMenus() {
+            if (window.innerWidth > 900) return;
+            document.querySelector('.left-nav')?.classList.add('hidden');
+            document.getElementById('file-explorer')?.classList.add('hidden');
+        }
+
+        function toggleSidebarMenu() {
+            const sidebar = document.querySelector('.left-nav');
+            const explorer = document.getElementById('file-explorer');
+            if (!sidebar) return;
+            const willShow = sidebar.classList.contains('hidden');
+            sidebar.classList.toggle('hidden');
+            if (willShow && explorer) {
+                explorer.classList.add('hidden');
             }
         }
 
-        // Load project list from filesystem
-        function loadProjectList() {
-            const projectListEl = document.getElementById('project-list');
-            const projectPath = './persistant-data/data';
-            
+        function toggleProjectsPanel() {
+            const explorer = document.getElementById('file-explorer');
+            const sidebar = document.querySelector('.left-nav');
+            if (!explorer) return;
+            const willShow = explorer.classList.contains('hidden');
+            explorer.classList.toggle('hidden');
+            if (willShow && sidebar) {
+                sidebar.classList.add('hidden');
+            }
+            if (willShow) {
+                loadProjectList();
+            }
+        }
+
+        async function fetchProjectFiles(project) {
             try {
-                const fs = require('fs');
-                if (fs.existsSync(projectPath)) {
-                    const entries = fs.readdirSync(projectPath);
-                    projectListEl.innerHTML = '';
-                    
-                    // Sort and display projects
-                    entries.sort().forEach(project => {
-                        const div = document.createElement('div');
-                        div.className = 'project-item' + (currentProject === project ? ' active' : '');
-                        div.textContent = project;
-                        div.onclick = () => openProject(project);
-                        projectListEl.appendChild(div);
+                const payload = await apiRequestJson(`/list-files?project=${encodeURIComponent(project)}`, {}, 'list_files');
+                const files = payload.files || [];
+                const folders = payload.folders || [];
+                const cacheEntries = files.map((f) => f.toUpperCase());
+                folders.forEach((folder) => {
+                    const folderName = String(folder.name || '').toUpperCase();
+                    if (!folderName) return;
+                    cacheEntries.push(folderName);
+                    const childFiles = Array.isArray(folder.files) ? folder.files : [];
+                    childFiles.forEach((child) => {
+                        cacheEntries.push(`${folderName}/${String(child).toUpperCase()}`);
+                    });
+                });
+                projectFilesCache.set(project, new Set(cacheEntries));
+                if (project === currentProject) {
+                    await refreshWritingProgress();
+                }
+                renderProgressTracker();
+                return { files, folders };
+            } catch (e) {
+                console.error('Error loading files:', e);
+                await logClientError('fetch_project_files_failed', e.message, { project });
+                return { files: [], folders: [] };
+            }
+        }
+
+        function updateHierarchySelection() {
+            document.querySelectorAll('.project-item').forEach((row) => {
+                row.classList.toggle('active', row.dataset.project === currentProject);
+            });
+
+            document.querySelectorAll('.file-item').forEach((row) => {
+                const isActive = row.dataset.project === currentProject && row.dataset.file === currentFile;
+                row.classList.toggle('active', isActive);
+            });
+
+            document.querySelectorAll('.folder-item').forEach((row) => {
+                const isActive = row.dataset.project === currentProject && row.dataset.file === currentFile;
+                row.classList.toggle('active', isActive);
+            });
+        }
+
+        async function populateProjectFiles(filesContainer, project) {
+            filesContainer.innerHTML = '';
+            const listing = await fetchProjectFiles(project);
+            const files = listing.files || [];
+            const folders = listing.folders || [];
+
+            files.forEach((filename) => {
+                const fileRow = document.createElement('div');
+                fileRow.className = 'file-item';
+                fileRow.dataset.project = project;
+                fileRow.dataset.file = filename;
+                fileRow.textContent = filename;
+                fileRow.onclick = async (event) => {
+                    event.stopPropagation();
+                    currentProject = project;
+                    currentFile = filename;
+                    setProgressModeForSelection(filename, false);
+                    updateHierarchySelection();
+                    await loadFile(project, filename);
+                };
+                filesContainer.appendChild(fileRow);
+            });
+
+            folders.forEach((folder) => {
+                const folderName = folder.name;
+                const folderRow = document.createElement('div');
+                folderRow.className = 'file-item folder-item';
+                folderRow.dataset.project = project;
+                folderRow.dataset.file = folderName;
+                folderRow.textContent = `${folderName}/`;
+                filesContainer.appendChild(folderRow);
+
+                const folderChildren = document.createElement('div');
+                folderChildren.className = 'project-files';
+
+                folderRow.onclick = async (event) => {
+                    event.stopPropagation();
+                    currentProject = project;
+                    currentFile = folderName;
+                    setProgressModeForSelection(folderName, true);
+                    await refreshWritingProgress();
+                    renderProgressTracker();
+                    renderActionButtons();
+                    updateHierarchySelection();
+                };
+
+                const childFiles = folder.files || [];
+                if (childFiles.length === 0) {
+                    const emptyRow = document.createElement('div');
+                    emptyRow.className = 'file-item empty-folder';
+                    emptyRow.textContent = '(empty)';
+                    folderChildren.appendChild(emptyRow);
+                } else {
+                    childFiles.forEach((child) => {
+                        const childPath = `${folderName}/${child}`;
+                        const childRow = document.createElement('div');
+                        childRow.className = 'file-item';
+                        childRow.dataset.project = project;
+                        childRow.dataset.file = childPath;
+                        childRow.textContent = child;
+                        childRow.onclick = async (event) => {
+                            event.stopPropagation();
+                            currentProject = project;
+                            currentFile = childPath;
+                            setProgressModeForSelection(childPath, false);
+                            updateHierarchySelection();
+                            await loadFile(project, childPath);
+                        };
+                        folderChildren.appendChild(childRow);
                     });
                 }
-            } catch (e) {
+
+                filesContainer.appendChild(folderChildren);
+            });
+
+            updateHierarchySelection();
+        }
+
+        async function renderProjectTree(projectListEl, project) {
+            const projectRow = document.createElement('div');
+            const isExpanded = expandedProjects.has(project);
+            projectRow.className = 'project-item';
+            projectRow.dataset.project = project;
+
+            const caret = document.createElement('span');
+            caret.className = 'project-caret' + (isExpanded ? ' expanded' : '');
+            caret.textContent = '▶';
+
+            const name = document.createElement('span');
+            name.className = 'project-name';
+            name.textContent = project;
+
+            projectRow.appendChild(caret);
+            projectRow.appendChild(name);
+
+            const filesContainer = document.createElement('div');
+            filesContainer.className = 'project-files';
+            filesContainer.dataset.project = project;
+            if (!isExpanded) {
+                filesContainer.classList.add('hidden');
+            }
+
+            projectRow.onclick = async () => {
+                currentProject = project;
+                await refreshWritingProgress();
+                renderProgressTracker();
+
+                if (expandedProjects.has(project)) {
+                    expandedProjects.delete(project);
+                    filesContainer.classList.add('hidden');
+                    caret.classList.remove('expanded');
+                } else {
+                    expandedProjects.add(project);
+                    filesContainer.classList.remove('hidden');
+                    caret.classList.add('expanded');
+
+                    if (filesContainer.childElementCount === 0) {
+                        await populateProjectFiles(filesContainer, project);
+                    }
+                }
+
+                updateHierarchySelection();
+            };
+            projectListEl.appendChild(projectRow);
+            projectListEl.appendChild(filesContainer);
+
+            if (isExpanded) {
+                await populateProjectFiles(filesContainer, project);
+            }
+
+            updateHierarchySelection();
+        }
+
+        // Load project list from Flask backend
+        async function loadProjectList() {
+            const projectListEl = document.getElementById('project-list');
+            
+            try {
+                const payload = await apiRequestJson('/list-projects', {}, 'list_projects');
+                const projects = Array.isArray(payload) ? payload : (payload.projects || []);
+                
+                projectListEl.innerHTML = '';
+                
+                // Sort and display project hierarchy.
+                const sorted = [...projects].sort();
+                for (const project of sorted) {
+                    await renderProjectTree(projectListEl, project);
+                }
+            }
+            catch (e) {
                 console.error('Error loading projects:', e);
+                await logClientError('load_project_list_failed', e.message, {});
             }
         }
 
-        // Open a project and load its first file (idea.md)
-        function openProject(projectName) {
+        // Open a project and load its default file.
+        async function openProject(projectName) {
             currentProject = projectName;
-            
-            // Update project list UI
-            document.querySelectorAll('.project-item').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            const projectEl = Array.from(document.querySelectorAll('.project-item')).find(
-                el => el.textContent === projectName
-            );
-            if (projectEl) projectEl.classList.add('active');
+            progressViewMode = 'planning';
+            await refreshWritingProgress();
+            renderProgressTracker();
 
-            // Load the idea.md file
-            loadFile(projectName, 'idea.md');
+            // Expand and load default project file.
+            expandedProjects.add(projectName);
+            await loadProjectList();
+            await loadFile(projectName, 'IDEA.md');
         }
 
-        // Load a file from persistent storage
-        function loadFile(project, filename) {
-            const filePath = `./persistant-data/data/${project}/${filename}`;
-            
+        // Load a file from Flask backend
+        async function loadFile(project, filename) {
             try {
-                const fs = require('fs');
-                if (fs.existsSync(filePath)) {
-                    const content = fs.readFileSync(filePath, 'utf8');
-                    
-                    // Update UI
-                    document.getElementById('filename-display').textContent = filename;
-                    document.getElementById('editor-title').textContent = filename.toUpperCase();
-                    document.getElementById('editor-content').value = content;
-                    
-                    unsavedChanges = false;
-                    updateUnsavedIndicator();
-                    
-                    // Show editor panel and info panel
-                    document.getElementById('file-editor').classList.remove('hidden');
-                    document.getElementById('info-panel').classList.remove('hidden');
-                    document.getElementById('file-explorer').classList.remove('hidden');
-                    
-                    // Update word/character count
-                    updateWordCount(content);
+                const payload = await apiRequestJson(`/get-file?project=${project}&filename=${filename}`, {}, 'get_file');
+                const content = payload.content || '';
+                currentProject = project;
+                currentFile = filename;
+                setProgressModeForSelection(filename, false);
+                expandedProjects.add(project);
+
+                if (isJsonFile(filename)) {
+                    setEditorMode('raw');
                 }
+                
+                // Update UI
+                document.getElementById('filename-display').textContent = filename;
+                document.getElementById('editor-title').textContent = filename.toUpperCase();
+                document.getElementById('editor-content').value = content;
+                
+                unsavedChanges = false;
+                updateUnsavedIndicator();
+                
+                // Show editor panel and info panel
+                showEditor();
+                document.getElementById('file-explorer').classList.remove('hidden');
+                
+                renderEditorPreview();
+                renderActionButtons();
+                updateHierarchySelection();
+                await refreshWritingProgress();
+                renderProgressTracker();
             } catch (e) {
                 console.error('Error loading file:', e);
+                await logClientError('load_file_failed', e.message, { project, filename });
             }
         }
 
-        // Save current file to persistent storage
-        function saveCurrentFile() {
+        // Save current file via Flask backend
+        async function saveCurrentFile() {
             try {
-                const fs = require('fs');
                 const content = document.getElementById('editor-content').value;
                 
-                const filePath = `./persistant-data/data/${currentProject}/${currentFile}`;
-                fs.writeFileSync(filePath, content, 'utf8');
-                
+                await apiRequestJson('/save-file', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        project: currentProject,
+                        filename: currentFile,
+                        content: content
+                    })
+                }, 'save_file');
+
                 unsavedChanges = false;
                 updateUnsavedIndicator();
                 alert('File saved successfully!');
             } catch (e) {
                 console.error('Error saving file:', e);
+                await logClientError('save_file_failed', e.message, { currentProject, currentFile });
                 alert('Error saving file. Please check the path.');
             }
         }
@@ -737,41 +2368,32 @@
         }
 
         // Dashboard views
-        function showDashboard() {
+        async function showDashboard() {
             document.getElementById('dashboard-view').classList.remove('hidden');
-            document.getElementById('file-editor').classList.add('hidden');
-            
-            const readmePath = './README.md';
-            try {
-                const fs = require('fs');
-                if (fs.existsSync(readmePath)) {
-                    const readme = fs.readFileSync(readmePath, 'utf8');
-                    // Extract relevant sections for welcome banner
-                    const lines = readme.split('\n').filter(l => l.trim());
-                    const text = lines.slice(1, 5).join('\n') + '\n\n...';
-                    document.getElementById('dashboard-readme').textContent = text;
-                }
-            } catch (e) {
-                console.error('Error loading README:', e);
-            }
+            document.getElementById('error-logs-view').classList.add('hidden');
+            document.getElementById('settings-view').classList.add('hidden');
+            hideFileEditor();
+            document.getElementById('file-explorer').classList.add('hidden');
 
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('nav-dashboard').classList.add('active');
+            // Fetch repository README from backend and render full markdown.
+            try {
+                const response = await fetch('/readme', { cache: 'no-store' });
+                if (!response.ok) throw new Error(`Failed to load README: ${response.status}`);
+                const content = await response.text();
+                renderMarkdownInto(document.getElementById('dashboard-readme'), content);
+            } catch (e) {
+                console.error(e);
+                await logClientError('dashboard_readme_load_failed', e.message, {});
+                document.getElementById('dashboard-readme').textContent = 'Unable to load README.';
+            }
         }
+
 
         // Modal functions
-        function openSettingsModal() {
-            document.getElementById('settings-modal').classList.add('open');
-            populateModelSelect();
-        }
-
-        function closeSettingsModal() {
-            document.getElementById('settings-modal').classList.remove('open');
-        }
-
         function showCreateProjectModal() {
             document.getElementById('create-project-modal').classList.add('open');
             document.getElementById('project-name-input').value = '';
+            selectStoryLength(selectedStoryLength || 'novella');
         }
 
         function closeCreateProjectModal() {
@@ -779,7 +2401,7 @@
         }
 
         // Project creation
-        function createNewProject() {
+        async function createNewProject() {
             const nameInput = document.getElementById('project-name-input');
             const projectName = nameInput.value.trim();
             
@@ -788,77 +2410,80 @@
                 return;
             }
 
-            try {
-                const fs = require('fs');
-                
-                // Create project directory
-                const projectDir = `./persistant-data/data/${projectName}`;
-                if (!fs.existsSync(projectDir)) {
-                    fs.mkdirSync(projectDir, { recursive: true });
-                    
-                    // Create idea.md file
-                    const ideaPath = `${projectDir}/idea.md`;
-                    const projectNameTitle = '#' + projectName.replace(/\\/g, '\\\\').replace(/\*/g, '\\*');
-                    fs.writeFileSync(ideaPath, projectNameTitle + '\n\n', 'utf8');
-                }
+            const storyLength = storyLengthOptions[selectedStoryLength];
+            if (!storyLength) {
+                alert('Please select a story length');
+                return;
+            }
 
-                // Open the project
-                openProject(projectName);
-                
-                // Update currentFile to be idea.md (or whatever was just created)
-                currentFile = 'idea.md';
+            try {
+                await apiRequestJson('/create-project', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        projectName: projectName,
+                        storyLength: selectedStoryLength
+                    })
+                }, 'create_project');
+
+                // Refresh hierarchy immediately, then expand/open new project.
+                await loadProjectList();
+                await openProject(projectName);
+                currentFile = 'IDEA.md';
                 
                 closeCreateProjectModal();
             } catch (e) {
                 console.error('Error creating project:', e);
+                await logClientError('create_project_failed', e.message, { projectName, selectedStoryLength });
                 alert('Error creating project: ' + e.message);
             }
         }
 
         // Settings functions
-        function populateModelSelect() {
+        async function populateModelSelect(selectedModel = '') {
             const select = document.getElementById('model-select');
-            const baseURL = settings.baseURL || 'http://localhost:1234/v1';
-            
-            // Load models from Flask endpoint (if available) or use predefined list
-            fetch('/models', { method: 'GET' })
-                .then(resp => resp.json())
-                .then(data => {
-                    if (data.models && data.models.length > 0) {
-                        select.innerHTML = '<option value="">-- Choose a model --</option>';
-                        data.models.forEach(model => {
-                            const option = document.createElement('option');
-                            option.value = model;
-                            option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
-                            select.appendChild(option);
-                        });
-                    } else if (settings.endpoint === 'http://localhost:1234/v1') {
-                        // LM Studio default - show common models for user to choose from
-                        const models = ['llama-3.2', 'mistral', 'gemma', 'phi-3'];
-                        select.innerHTML = '<option value="">-- Choose a model --</option>';
-                        models.forEach(model => {
-                            const option = document.createElement('option');
-                            option.value = model;
-                            option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
-                            select.appendChild(option);
-                        });
-                    }
-                })
-                .catch(err => {
-                    console.log('Using default models:', err);
-                    // Fallback to common local LLM models
-                    const models = ['llama-3.2', 'mistral', 'gemma', 'phi-3'];
-                    select.innerHTML = '<option value="">-- Choose a model --</option>';
-                    models.forEach(model => {
-                        const option = document.createElement('option');
-                        option.value = model;
-                        option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
-                        select.appendChild(option);
-                    });
+            const desiredModel = selectedModel || settings.model || '';
+
+            const setOptions = (models) => {
+                select.innerHTML = '<option value="">-- Choose a model --</option>';
+                models.forEach((model) => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.textContent = model.charAt(0).toUpperCase() + model.slice(1);
+                    select.appendChild(option);
                 });
+
+                if (desiredModel) {
+                    const exists = Array.from(select.options).some((option) => option.value === desiredModel);
+                    if (!exists) {
+                        const option = document.createElement('option');
+                        option.value = desiredModel;
+                        option.textContent = desiredModel;
+                        select.appendChild(option);
+                    }
+                    select.value = desiredModel;
+                }
+            };
+            
+            // Load models from Flask endpoint or use predefined list for LM Studio default
+            try {
+                const data = await apiRequestJson('/models', { method: 'GET' }, 'load_models');
+                if (data.models && data.models.length > 0) {
+                    setOptions(data.models);
+                } else {
+                    setOptions(['llama-3.2', 'mistral', 'gemma', 'phi-3']);
+                }
+            } catch (err) {
+                console.log('Using default LM Studio models:', err);
+                logClientError('populate_model_select_failed', err.message, {});
+                setOptions(['llama-3.2', 'mistral', 'gemma', 'phi-3']);
+            }
+
+            return select.value;
         }
 
-        function testModel() {
+
+function testModel() {
             const model = document.getElementById('model-select').value;
             const prompt = document.getElementById('test-prompt').value;
             const outputEl = document.getElementById('test-output');
@@ -869,45 +2494,32 @@
             }
 
             try {
-                // Construct the API URL and payload
-                const baseURL = settings.baseURL || 'http://localhost:1234/v1';
-                
-                const output = `Sending request to ${baseURL}...\n\nModel: ${model}\nPrompt: ${prompt}`;
+                const output = `Sending to Flask...\n\nModel: ${model}\nPrompt: ${prompt}`;
                 outputEl.value = output;
 
-                // Make the actual API call - include model in request if LM Studio supports it
-                let apiUrl = `${baseURL}/chat/completions`;
-                let payload = {
-                    messages: [{ role: 'user', content: prompt }]
-                };
-                
-                // Some models need to be specified at load time, not per-request
-                const headers = { 
-                    'Content-Type': 'application/json'
-                };
-                
-                if (settings.apiKey) {
-                    headers['Authorization'] = `Bearer ${settings.apiKey}`;
-                }
-                
-                fetch(apiUrl, {
+                fetch("/chat", {
                     method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(payload)
-                }).then(async (resp) => {
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, model })
+                })
+                .then(async (resp) => {
                     if (!resp.ok) {
                         const text = await resp.text();
-                        throw new Error(`API Error ${resp.status}: ${text}`);
+                        throw new Error(`Flask API error ${resp.status}: ${text}`);
                     }
-                    
                     return resp.json();
-                }).then(data => {
+                })
+                .then(data => {
                     console.log('Model response:', data);
-                    
-                    // Extract and display the assistant message
-                    const msg = data.choices[0]?.message?.content || '(No assistant message found)';
+
+                    const msg =
+                        data.choices[0]?.message?.content ||
+                        data.choices[0]?.delta?.content ||
+                        '(No assistant message found)';
+
                     outputEl.value = `Response:\n${msg}\n\nContext Limit: ${settings.contextLimit || 'Not set (default)'}`;
-                }).catch(err => {
+                })
+                .catch(err => {
                     console.error('Test error:', err);
                     outputEl.value = `Error:\n${err.message}`;
                 });
@@ -916,6 +2528,7 @@
                 console.error('Test error:', e);
                 alert('Error testing model: ' + e.message);
             }
+
         }
 
         function saveSettings() {
@@ -928,32 +2541,58 @@
             }
 
             try {
-                const fs = require('fs');
-                
-                settings.model = model;
-                settings.contextLimit = parseInt(contextLimitStr) || 0;
-                
-                // Save to persistent storage
-                const settingsPath = './persistant-data/settings/settings.json';
-                const settingsData = {
-                    model: settings.model,
-                    contextLimit: settings.contextLimit,
-                    baseURL: settings.baseURL,
-                    apiKey: settings.apiKey
-                };
-                fs.writeFileSync(settingsPath, JSON.stringify(settingsData, null, 2), 'utf8');
-
-                alert('Settings saved successfully!');
-                closeSettingsModal();
+                apiRequestJson('/save-settings', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        model: model,
+                        contextLimit: parseInt(contextLimitStr) || 4096
+                    })
+                }, 'save_settings')
+                .then(data => {
+                    settings.model = model;
+                    settings.contextLimit = parseInt(contextLimitStr) || 4096;
+                    alert('Settings saved successfully!');
+                })
+                .catch(error => {
+                    console.error('Error saving settings:', error);
+                    logClientError('save_settings_failed', error.message, { model });
+                    alert('Error saving settings: ' + error.message);
+                });
             } catch (e) {
                 console.error('Error saving settings:', e);
+                logClientError('save_settings_exception', e.message, { model });
                 alert('Error saving settings: ' + e.message);
             }
         }
 
         // Initialize application
         document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('error', (event) => {
+                const file = event.filename || 'unknown';
+                logClientError('window_error', event.message || 'Unhandled window error', {
+                    file,
+                    line: event.lineno || null,
+                    column: event.colno || null
+                });
+            });
+
+            window.addEventListener('unhandledrejection', (event) => {
+                const reason = event.reason && event.reason.message ? event.reason.message : String(event.reason || 'Unhandled rejection');
+                logClientError('unhandled_rejection', reason, {});
+            });
+
             loadSettings();
+            setEditorMode('split');
+            selectStoryLength(selectedStoryLength);
+            renderProgressTracker();
+
+            const editorEl = document.getElementById('editor-content');
+            editorEl.addEventListener('input', function() {
+                unsavedChanges = true;
+                updateUnsavedIndicator();
+                renderEditorPreview();
+            });
             
             // Check if we're on a Flask route or standalone
             if (window.location.pathname === '/') {

@@ -6,6 +6,7 @@ services:
     volumes:
       # Persist data directory across container restarts
       - ./data:/app/data
+    # Run the app as the dedicated non-root user created in the image.
     # Use the .env file located in this directory.
     env_file:
       - ./.env

@@ -32,6 +32,7 @@ Help authors develop compelling premises that hook readers and sell books.
 6. **Theme** — What's this story really about underneath the plot?
 7. **Market Fit** — Where does this sit in the genre landscape?
 8. **Comp Titles** — What published books is this "like but different from"?
+9. **Plot Threads / Story Flow** — Capture any specific plot threads, progression beats, reveal chains, relationship turns, scene flow, or ending trajectory stated in the author's idea so later planning stages preserve them.
 
 ## Testing the Premise
 
@@ -46,3 +47,4 @@ A strong premise should pass these tests:
 ## Output Format
 
 Save the final premise to the project's `premise.md` file with all components documented.
+Include a dedicated section that lists the source idea's explicit plot threads or flow elements that must be carried into character profiles, synopsis, and outline work.

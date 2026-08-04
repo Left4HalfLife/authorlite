@@ -33,7 +33,9 @@ Draft text that matches the author's voice, serves the story, and follows the st
 - Enter scenes late, leave early
 - Every paragraph should earn its place
 
+## Explicit Content
+- Erotic content must be strong, plot-serving, not just titillation. Maintain focus on character development, emotional stakes, and relationship dynamics.  
+- Erotic scenes should invoke arousal, intimacy and entertainment. Build up tension, include detailed actions, the characters' sounds, and the explosive climax.
+
 ## Output
 - Save drafts to the project's `chapters/` folder
-- Track word count per chapter
-- Note any Book Bible updates needed
